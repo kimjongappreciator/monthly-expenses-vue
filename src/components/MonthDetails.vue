@@ -23,13 +23,13 @@ const close = () => emit('update:open', false)
       <DialogHeader>
         <DialogTitle>Detalles del mes</DialogTitle>
       </DialogHeader>
-      <div class="w-full px-4 py-6">
-      <Tabs default-value="details" class="w-auto">
-        <TabsList>
-            <TabsTrigger value="details">Detalles</TabsTrigger>
+      <div class="w-auto px-4 py-6">
+      <Tabs default-value="stats" class="w-auto">
+        <TabsList class="grid w-full grid-cols-2">
+            <TabsTrigger value="stats">Estadisticas</TabsTrigger>
             <TabsTrigger value="transactions">Transacciones</TabsTrigger>
         </TabsList>
-        <TabsContent value="details">
+        <TabsContent value="stats">
             Contenido de Detalles
         </TabsContent>
         <TabsContent value="transactions">
