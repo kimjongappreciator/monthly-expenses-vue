@@ -1,41 +1,44 @@
 type CategoryModel = {
-  id: Number;
-  importance: Number
+  id: number;
+  importance: number
   name: string;         
   description?: string; 
   icon: string;         
-  color: string;        
+  color: string;
 };
 
 
 type ExpenseModel ={
-    id: Number,
-    MonthId: Number,
+    id: number,
+    MonthId: number,
     name: string,
     description?: string,
-    amount: Number,
-    monthId: Number,
-    categoryId: Number,    
+    amount: number,
+    monthId: number,    
+    category: CategoryModel
     date: Date
 }
 
 type IncomeModel ={
-    id: Number,
-    MonthId: Number,
+    id: number,
+    MonthId: number,
     name: string,
     description: string,
-    amount: Number,
-    monthId: Number,
-    categoryId: Number,    
+    amount: number,
+    monthId: number,    
+    category: CategoryModel
     date: Date
 }
 
 export type MonthModel = {
-    id: Number,
+    id: number,
     name: string,
     description: string,
-    year: Number,    
-    days: Number,
-    income?: IncomeModel
-    expenses?: ExpenseModel
+    year: number,    
+    days: number,
+    income?: IncomeModel[],
+    expenses?: ExpenseModel[],
+    totalIncome: number,
+    totalExpenses: number,
+    balance: number
 }

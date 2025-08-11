@@ -9,7 +9,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 31,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 100,
+        totalExpenses: 10,
+        balance: 0
     },
     {
         id: 2,
@@ -18,7 +21,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 28,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 10,
+        totalExpenses: 30,
+        balance: 0
     },
     {
         id: 3,
@@ -27,7 +33,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 31,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 0,
+        totalExpenses: 0,
+        balance: 0
     },
     {
         id: 4,
@@ -36,7 +45,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 30,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 0,
+        totalExpenses: 0,
+        balance: 0
     },
     {
         id: 5,
@@ -45,7 +57,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 31,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 0,
+        totalExpenses: 0,
+        balance: 0
     },
     {
         id: 6,
@@ -54,7 +69,10 @@ export const months = ref<MonthModel[]>([
         year: 2021,
         days: 30,
         income: undefined,
-        expenses: undefined
+        expenses: undefined,
+        totalIncome: 0,
+        totalExpenses: 0,
+        balance: 0
     }   
 
 ]);

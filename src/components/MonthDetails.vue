@@ -1,35 +1,47 @@
 <script setup lang="ts">
-import type { MonthModel } from '@/models/MonthModel';
-import Card from './ui/card/Card.vue';
-import CardContent from './ui/card/CardContent.vue';
-import CardDescription from './ui/card/CardDescription.vue';
-import CardHeader from './ui/card/CardHeader.vue';
-import CardTitle from './ui/card/CardTitle.vue';
-import CardFooter from './ui/card/CardFooter.vue';
-import Button from './ui/button/Button.vue';
-import { Check } from 'lucide-vue-next';
-
-defineProps<{
-    month: MonthModel
-}>();
+import { defineProps, defineEmits } from 'vue'
+import Dialog from './ui/dialog/Dialog.vue';
+import DialogContent from './ui/dialog/DialogContent.vue';
+import DialogHeader from './ui/dialog/DialogHeader.vue';
+import DialogTitle from './ui/dialog/DialogTitle.vue';
+import DialogFooter from './ui/dialog/DialogFooter.vue';
+import Tabs from './ui/tabs/Tabs.vue';
+import TabsList from './ui/tabs/TabsList.vue';
+import TabsTrigger from './ui/tabs/TabsTrigger.vue';
+import TabsContent from './ui/tabs/TabsContent.vue';
 
 
+const props = defineProps<{ open: boolean }>()
+const emit = defineEmits<{ (e: 'update:open', v: boolean): void }>()
+
+const close = () => emit('update:open', false)
 </script>
 
 <template>
-    <Card>
-        <CardHeader>
-            <CardTitle>{{month.name}}</CardTitle>
-            <CardDescription>Temp desc</CardDescription>
-        </CardHeader>
-        <CardContent>
+  <Dialog :open="props.open" @update:open="close">    
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Detalles del mes</DialogTitle>
+      </DialogHeader>
+      <div class="w-full px-4 py-6">
+      <Tabs default-value="details" class="w-auto">
+        <TabsList>
+            <TabsTrigger value="details">Detalles</TabsTrigger>
+            <TabsTrigger value="transactions">Transacciones</TabsTrigger>
+        </TabsList>
+        <TabsContent value="details">
+            Contenido de Detalles
+        </TabsContent>
+        <TabsContent value="transactions">
+            Contenido de Transacciones
+        </TabsContent>
+      </Tabs>     <!-- Aquí pones tu contenido -->
+      
+        <!-- Mostrar detalles del mes -->
+      </div>
 
-        </CardContent>
-        <CardFooter>
-            <Button class="w-full">
-                <Check class="mr-2 h-4 w-4" /> Mark all as read
-            </Button>
-        </CardFooter>
-    </Card>
-
+      <DialogFooter>        
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
