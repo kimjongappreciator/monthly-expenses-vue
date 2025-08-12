@@ -1,7 +1,6 @@
-import { ref } from 'vue';
 import type { MonthModel } from "./MonthModel";
 
-export const months = ref<MonthModel[]>([
+export const months : MonthModel[] = [
     {
         id: 1,
         name: 'Enero',
@@ -75,4 +74,4 @@ export const months = ref<MonthModel[]>([
         balance: 0
     }   
 
-]);
+];
