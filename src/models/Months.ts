@@ -72,6 +72,18 @@ export const months : MonthModel[] = [
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
+    },
+    {
+        id: 7,
+        name: 'Julio',
+        description: 'Mes de julio',
+        year: 2021,
+        days: 30,
+        income: undefined,
+        expenses: undefined,
+        totalIncome: 0,
+        totalExpenses: 0,
+        balance: 0
     }   
 
 ];
