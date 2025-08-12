@@ -9,6 +9,7 @@ import Tabs from './ui/tabs/Tabs.vue';
 import TabsList from './ui/tabs/TabsList.vue';
 import TabsTrigger from './ui/tabs/TabsTrigger.vue';
 import TabsContent from './ui/tabs/TabsContent.vue';
+import TransactionList from './TransactionList.vue';
 
 
 const props = defineProps<{ open: boolean }>()
@@ -18,29 +19,30 @@ const close = () => emit('update:open', false)
 </script>
 
 <template>
-  <Dialog :open="props.open" @update:open="close">    
-    <DialogContent>
+  <Dialog  :open="props.open" @update:open="close">
+    <DialogContent class="max-w-[900px] w-full">
       <DialogHeader>
         <DialogTitle>Detalles del mes</DialogTitle>
       </DialogHeader>
       <div class="w-auto px-4 py-6">
-      <Tabs default-value="stats" class="w-auto">
-        <TabsList class="grid w-full grid-cols-2">
+        <Tabs default-value="stats" class="w-full">
+          <TabsList class="grid w-full grid-cols-2">
             <TabsTrigger value="stats">Estadisticas</TabsTrigger>
             <TabsTrigger value="transactions">Transacciones</TabsTrigger>
-        </TabsList>
-        <TabsContent value="stats">
+          </TabsList>
+          <TabsContent value="stats">
             Contenido de Detalles
-        </TabsContent>
-        <TabsContent value="transactions">
+          </TabsContent>
+          <TabsContent value="transactions">
             Contenido de Transacciones
-        </TabsContent>
-      </Tabs>     <!-- Aquí pones tu contenido -->
-      
+            <TransactionList :month-id="1" />
+          </TabsContent>
+        </Tabs> <!-- Aquí pones tu contenido -->
+
         <!-- Mostrar detalles del mes -->
       </div>
 
-      <DialogFooter>        
+      <DialogFooter>
       </DialogFooter>
     </DialogContent>
   </Dialog>

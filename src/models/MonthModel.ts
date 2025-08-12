@@ -8,7 +8,7 @@ type CategoryModel = {
 };
 
 
-type ExpenseModel ={
+export type ExpenseModel ={
     id: number,
     MonthId: number,
     name: string,
@@ -19,7 +19,7 @@ type ExpenseModel ={
     date: Date
 }
 
-type IncomeModel ={
+export type IncomeModel ={
     id: number,
     MonthId: number,
     name: string,
@@ -36,8 +36,8 @@ export type MonthModel = {
     description: string,
     year: number,    
     days: number,
-    income?: IncomeModel[],
-    expenses?: ExpenseModel[],
+    income: IncomeModel[],
+    expenses: ExpenseModel[],
     totalIncome: number,
     totalExpenses: number,
     balance: number

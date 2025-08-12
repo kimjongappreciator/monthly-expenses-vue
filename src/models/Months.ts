@@ -1,3 +1,5 @@
+import { expenses } from "./Expenses";
+import { incomes } from "./Income";
 import type { MonthModel } from "./MonthModel";
 
 export const months : MonthModel[] = [
@@ -7,10 +9,10 @@ export const months : MonthModel[] = [
         description: 'Mes de enero',
         year: 2021,
         days: 31,
-        income: undefined,
-        expenses: undefined,
-        totalIncome: 100,
-        totalExpenses: 10,
+        income: incomes,
+        expenses: expenses,
+        totalIncome: incomes.reduce((sum, income) => sum + income.amount, 0),
+        totalExpenses: expenses.reduce((sum, expense) => sum + expense.amount, 0),
         balance: 0
     },
     {
@@ -19,8 +21,8 @@ export const months : MonthModel[] = [
         description: 'Mes de febrero',
         year: 2021,
         days: 28,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 10,
         totalExpenses: 30,
         balance: 0
@@ -31,8 +33,8 @@ export const months : MonthModel[] = [
         description: 'Mes de marzo',
         year: 2021,
         days: 31,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
@@ -43,8 +45,8 @@ export const months : MonthModel[] = [
         description: 'Mes de abril',
         year: 2021,
         days: 30,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
@@ -55,8 +57,8 @@ export const months : MonthModel[] = [
         description: 'Mes de mayo',
         year: 2021,
         days: 31,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
@@ -67,8 +69,8 @@ export const months : MonthModel[] = [
         description: 'Mes de junio',
         year: 2021,
         days: 30,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
@@ -79,8 +81,8 @@ export const months : MonthModel[] = [
         description: 'Mes de julio',
         year: 2021,
         days: 30,
-        income: undefined,
-        expenses: undefined,
+        income: [],
+        expenses: [],
         totalIncome: 0,
         totalExpenses: 0,
         balance: 0
