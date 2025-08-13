@@ -28,8 +28,7 @@ const accordionItems = [
     <Accordion type="single" collapsible :default-value="defaultValue">
         <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
             <AccordionTrigger>{{ item.title }}</AccordionTrigger>
-            <AccordionContent>
-                <!-- Contenedor scroll horizontal -->
+            <AccordionContent>                
                 <div class="overflow-x-auto">
                     <Table class="min-w-[600px]">
                         <TableCaption>A list of your recent invoices.</TableCaption>
