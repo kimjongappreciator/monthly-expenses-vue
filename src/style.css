@@ -96,8 +96,16 @@
   --sidebar-ring: oklch(0.708 0 0);
   --up-color: oklch(69.755% 0.21583 145.208);
   --down-color: oklch(60.882% 0.19388 20.701);
-  --circle-chart-primary: 235 60% 50%;   /* azul moderado */
-  --circle-chart-secondary: 275 55% 55%; /* púrpura suave */
+
+  /*default chart colors*/
+  --circle-chart-primary: 235 60% 50%;   
+  --circle-chart-secondary: 275 55% 55%; 
+
+  /*Transaction type colors*/
+  --chart-income-primary: 160 70% 45%; 
+  --chart-income-secondary: 180 65% 50%;
+  --chart-expense-primary: 20 80% 50%;  
+  --chart-expense-secondary: 0 75% 55%;
 }
 
 .dark {
@@ -135,8 +143,16 @@
   --sidebar-ring: oklch(0.439 0 0);
   --up-color: oklch(0.696 0.17 162.48);
   --down-color: oklch(0.637 0.237 25.331);
-  --circle-chart-primary: 215 75% 60%;   /* Azul cian brillante */
-  --circle-chart-secondary: 275 70% 65%; /* Púrpura más vivo */
+  
+  /*default chart colors*/
+  --circle-chart-primary: 215 75% 60%;
+  --circle-chart-secondary: 275 70% 65%;
+
+  /*Transaction type colors*/
+  --chart-income-primary: 160 75% 60%;
+  --chart-income-secondary: 180 70% 65%;  
+  --chart-expense-primary: 25 85% 65%;
+  --chart-expense-secondary: 0 80% 70%;
 }
 
 @layer base {

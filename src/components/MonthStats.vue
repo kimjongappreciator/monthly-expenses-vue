@@ -2,50 +2,33 @@
 import { DonutChart } from "@/components/ui/chart-donut"
 import { useMonthStore } from "@/models/monthsStore"
 
-const expenses = useMonthStore().getExpenses(1) ?? []
-const income = useMonthStore().getIncome(1) ?? []
+const props = defineProps<{
+    monthId: number
+}>()
 
-const total = expenses.concat(income);
-console.log(total);
+const expenses = useMonthStore().getExpenses(props.monthId) ?? []
+const income = useMonthStore().getIncome(props.monthId) ?? []
 
-const data = [
-    {
-        name: "Jan",
-        total: Math.floor(Math.random() * 2000) + 500,
-        status: "up",
-        predicted: Math.floor(Math.random() * 2000) + 500,
-    },
-    {
-        name: "Feb",
-        total: Math.floor(Math.random() * 2000) + 500,
-        predicted: Math.floor(Math.random() * 2000) + 500,
-        status: "up",
-    },
-    {
-        name: "Mar",
-        total: Math.floor(Math.random() * 2000) + 500,
-        predicted: Math.floor(Math.random() * 2000) + 500,
-        status: "down",
-    },
-    {
-        name: "Apr",
-        total: Math.floor(Math.random() * 2000) + 500,
-        predicted: Math.floor(Math.random() * 2000) + 500,
-        status: "up",
-    },
-    {
-        name: "May",
-        total: Math.floor(Math.random() * 2000) + 500,
-        predicted: Math.floor(Math.random() * 2000) + 500,
-        status: "down",
-    },
-    {
-        name: "Jun",
-        total: Math.floor(Math.random() * 2000) + 500,
-        predicted: Math.floor(Math.random() * 2000) + 500,
-        status: "up",
-    },
-]
+function generateColors(num: number = 3, transType: 'income' | 'expenses' = 'income') {
+
+    const primaryColor = transType === 'income' ? '--chart-income-primary' : '--chart-expense-primary'
+    const secondaryColor = transType === 'income' ? '--chart-income-secondary' : '--chart-expense-secondary'
+
+    const count = num
+    const quotient = Math.floor(count / 2)
+    const remainder = count % 2
+
+    const primaryCount = quotient + remainder
+    const secondaryCount = quotient
+    const colors = [...Array.from(new Array(primaryCount).keys()).map(i => `hsl(var(${primaryColor}) / ${1 - (1 / primaryCount) * i})`),
+    ...Array.from(new Array(secondaryCount).keys()).map(i => `hsl(var(${secondaryColor}) / ${1 - (1 / secondaryCount) * i})`),]
+
+    return colors
+}
+
+const expensesColors = generateColors(expenses.length, 'expenses')
+const incomeColors = generateColors(income.length)
+
 
 function valueFormatter(tick: number | Date) {
     return typeof tick === "number"
@@ -55,5 +38,25 @@ function valueFormatter(tick: number | Date) {
 </script>
 
 <template>
-    <DonutChart index="name" :category="'total'" :data="data" :value-formatter="valueFormatter"/>
+
+    <div class="flex flex-col md:flex-row justify-between">
+        <div class="flex flex-col md:flex-row gap-4">
+
+            <div class="text-center">
+                <h1 class="pb-2">Ingresos</h1>
+                <DonutChart index="name" :category="'amount'" :data="income" :value-formatter="valueFormatter"
+                    :colors="incomeColors" />
+            </div>
+
+            <div class="text-center">
+                <h1 class="pb-2">Gastos</h1>
+                <DonutChart index="name" :category="'amount'" :data="expenses" :value-formatter="valueFormatter"
+                    :colors="expensesColors" />
+            </div>
+
+        </div>
+    </div>
+
+
+
 </template>

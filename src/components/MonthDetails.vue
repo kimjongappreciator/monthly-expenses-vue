@@ -13,41 +13,34 @@ import TransactionList from './TransactionList.vue';
 import MonthStats from './MonthStats.vue';
 
 
-const props = defineProps<{ open: boolean }>()
+const props = defineProps<{ open: boolean, monthId: number }>()
 const emit = defineEmits<{ (e: 'update:open', v: boolean): void }>()
 
 const close = () => emit('update:open', false)
 </script>
 
 <template>
-  <Dialog  :open="props.open" @update:open="close">
+  <Dialog :open="props.open" @update:open="close">
     <DialogContent class="w-auto min-w-fit">
       <DialogHeader>
-        <DialogTitle>Detalles del mes</DialogTitle>
+        <DialogTitle class="text-center">Detalles</DialogTitle>
       </DialogHeader>
       <div class="w-auto px-4 py-6">
-        <Tabs default-value="stats" class="w-full">
+        <Tabs default-value="stats" class="w-full md:w-fit">
           <TabsList class="grid w-full grid-cols-2">
             <TabsTrigger value="stats">Estadisticas</TabsTrigger>
             <TabsTrigger value="transactions">Transacciones</TabsTrigger>
           </TabsList>
           <TabsContent value="stats">
-            <p class="text-sm text-gray-500 mb-4">
-            Gastos e ingresos detallados del mes
-            </p>
-            <MonthStats />
+            <h1 class="text-lm mb-4 text-center"> Graficos detallados del mes </h1>
+            <MonthStats :month-id="monthId" />
           </TabsContent>
-          <TabsContent value="transactions">
-            Contenido de Transacciones
-            <TransactionList :month-id="1" />
+          <TabsContent value="transactions"> Contenido de Transacciones
+            <TransactionList :month-id="monthId" />
           </TabsContent>
-        </Tabs> <!-- Aquí pones tu contenido -->
-
-        <!-- Mostrar detalles del mes -->
+        </Tabs>
       </div>
-
-      <DialogFooter>
-      </DialogFooter>
+      <DialogFooter> </DialogFooter>
     </DialogContent>
   </Dialog>
 </template>

@@ -1,6 +1,6 @@
 // stores/monthStore.ts
 import { defineStore } from 'pinia'
-import type { ExpenseModel, IncomeModel, MonthModel } from '@/models/MonthModel'
+import type { MonthModel, transactionModel } from '@/models/MonthModel'
 import { months } from './Months'
 
 export const useMonthStore = defineStore('monthStore', {
@@ -17,7 +17,7 @@ export const useMonthStore = defineStore('monthStore', {
         this.months[index] = { ...this.months[index], ...data }
       }
     },
-    newIncome(id: number, income: IncomeModel) {
+    newIncome(id: number, income: transactionModel) {
       const index = this.months.findIndex(m => m.id === id)
       if (index !== -1) {
         this.months[index].income.push(income)        
@@ -35,7 +35,7 @@ export const useMonthStore = defineStore('monthStore', {
         this.months[index].income = this.months[index].income.filter(i => i.id !== incomeId)
       }
     },
-    newExpense(id: number, expense: ExpenseModel) {
+    newExpense(id: number, expense: transactionModel) {
       const index = this.months.findIndex(m => m.id === id)
       if (index !== -1) {
         this.months[index].expenses.push(expense)

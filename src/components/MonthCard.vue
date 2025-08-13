@@ -65,6 +65,6 @@ const getBalanceColor = (balance: number) => {
         
     </Card>
 
-    <MonthDetails v-model:open="openDetails"></MonthDetails>    
+    <MonthDetails v-model:open="openDetails" :month-id="month.id"></MonthDetails>    
 
 </template>

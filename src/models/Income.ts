@@ -1,7 +1,7 @@
-import type { IncomeModel } from "./MonthModel";
+import type { transactionModel } from "./MonthModel";
 
 //mock para mes de enero
-export const incomes: IncomeModel[] = [
+export const incomes: transactionModel[] = [
   {
     id: 1,
     MonthId: 202508,
