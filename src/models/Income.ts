@@ -13,8 +13,7 @@ export const incomes: IncomeModel[] = [
       id: 4,
       importance: 5,
       name: "Trabajo",
-      description: "Ingresos por empleo",
-      icon: "briefcase",
+      description: "Ingresos por empleo",      
       color: "#3F51B5"
     },
     date: new Date("2025-08-01")
@@ -30,8 +29,7 @@ export const incomes: IncomeModel[] = [
       id: 5,
       importance: 3,
       name: "Venta",
-      description: "Ingresos por venta de objetos",
-      icon: "tag",
+      description: "Ingresos por venta de objetos",      
       color: "#9C27B0"
     },
     date: new Date("2025-08-04")
@@ -47,8 +45,7 @@ export const incomes: IncomeModel[] = [
       id: 6,
       importance: 1,
       name: "Finanzas",
-      description: "Ingresos pasivos y financieros",
-      icon: "dollar-sign",
+      description: "Ingresos pasivos y financieros",      
       color: "#00BCD4"
     },
     date: new Date("2025-08-07")

@@ -20,7 +20,7 @@ const close = () => emit('update:open', false)
 
 <template>
   <Dialog  :open="props.open" @update:open="close">
-    <DialogContent class="max-w-[900px] w-full">
+    <DialogContent class="w-auto min-w-fit">
       <DialogHeader>
         <DialogTitle>Detalles del mes</DialogTitle>
       </DialogHeader>

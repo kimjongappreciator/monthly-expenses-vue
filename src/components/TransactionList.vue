@@ -32,7 +32,7 @@ const accordionItems = [
         <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
             <AccordionTrigger>{{ item.title }}</AccordionTrigger>
             <AccordionContent>
-                <Table>
+                <Table class="overflow-x-auto">
                     <TableCaption>A list of your recent invoices.</TableCaption>
                     <TableHeader>
                         <TableRow>
@@ -52,14 +52,18 @@ const accordionItems = [
                                 {{ e.name }}
                             </TableCell>
                             <TableCell>{{ e.category.name }}</TableCell>
-                            <TableCell>{{ e.description }}</TableCell>
+                            <TableCell class="w-[200px] text-wrap">
+                                <div class="max-w-[200px] whitespace-normal break-words">
+                                    {{ e.description }}
+                                </div>
+                            </TableCell>
                             <TableCell>{{ e.date.toDateString() }}</TableCell>
                             <TableCell class="text-right">
                                 {{ e.amount }}
                             </TableCell>
                         </TableRow>
                     </TableBody>
-                </Table>                
+                </Table>
             </AccordionContent>
         </AccordionItem>
     </Accordion>

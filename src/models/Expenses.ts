@@ -13,8 +13,7 @@ export const expenses: ExpenseModel[] = [
       id: 1,
       importance: 3,
       name: "Alimentación",
-      description: "Gastos de comida y supermercado",
-      icon: "shopping-cart",
+      description: "Gastos de comida y supermercado",      
       color: "#FF9800"
     },
     date: new Date("2025-08-03")
@@ -30,8 +29,7 @@ export const expenses: ExpenseModel[] = [
       id: 2,
       importance: 2,
       name: "Transporte",
-      description: "Gastos de movilidad",
-      icon: "bus",
+      description: "Gastos de movilidad",      
       color: "#2196F3"
     },
     date: new Date("2025-08-05")
@@ -47,8 +45,7 @@ export const expenses: ExpenseModel[] = [
       id: 3,
       importance: 4,
       name: "Servicios",
-      description: "Servicios básicos como agua, luz, gas",
-      icon: "zap",
+      description: "Servicios básicos como agua, luz, gas",      
       color: "#4CAF50"
     },
     date: new Date("2025-08-08")

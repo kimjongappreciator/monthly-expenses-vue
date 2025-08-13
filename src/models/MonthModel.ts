@@ -2,8 +2,7 @@ type CategoryModel = {
   id: number;
   importance: number
   name: string;         
-  description?: string; 
-  icon: string;         
+  description?: string;            
   color: string;
 };
 
