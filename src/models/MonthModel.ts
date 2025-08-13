@@ -22,7 +22,7 @@ export type IncomeModel ={
     id: number,
     MonthId: number,
     name: string,
-    description: string,
+    description?: string,
     amount: number,
     monthId: number,    
     category: CategoryModel

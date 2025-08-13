@@ -29,6 +29,12 @@ export const useMonthStore = defineStore('monthStore', {
         return this.months[index].income
       }
     },
+    deleteIncome(id: number, incomeId: number) {
+      const index = this.months.findIndex(m => m.id === id)
+      if (index !== -1) {
+        this.months[index].income = this.months[index].income.filter(i => i.id !== incomeId)
+      }
+    },
     newExpense(id: number, expense: ExpenseModel) {
       const index = this.months.findIndex(m => m.id === id)
       if (index !== -1) {
@@ -39,6 +45,12 @@ export const useMonthStore = defineStore('monthStore', {
       const index = this.months.findIndex(m => m.id === id)
       if (index !== -1) {
         return this.months[index].expenses
+      }
+    },
+    deleteExpense(id: number, expenseId: number) {
+      const index = this.months.findIndex(m => m.id === id)
+      if (index !== -1) {
+        this.months[index].expenses = this.months[index].expenses.filter(e => e.id !== expenseId)        
       }
     }
 

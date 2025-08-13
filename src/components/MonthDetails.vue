@@ -10,6 +10,7 @@ import TabsList from './ui/tabs/TabsList.vue';
 import TabsTrigger from './ui/tabs/TabsTrigger.vue';
 import TabsContent from './ui/tabs/TabsContent.vue';
 import TransactionList from './TransactionList.vue';
+import MonthStats from './MonthStats.vue';
 
 
 const props = defineProps<{ open: boolean }>()
@@ -31,7 +32,10 @@ const close = () => emit('update:open', false)
             <TabsTrigger value="transactions">Transacciones</TabsTrigger>
           </TabsList>
           <TabsContent value="stats">
-            Contenido de Detalles
+            <p class="text-sm text-gray-500 mb-4">
+            Gastos e ingresos detallados del mes
+            </p>
+            <MonthStats />
           </TabsContent>
           <TabsContent value="transactions">
             Contenido de Transacciones

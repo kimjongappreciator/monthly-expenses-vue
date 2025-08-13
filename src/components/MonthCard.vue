@@ -20,8 +20,8 @@ defineProps<{
 const openDetails = ref(false);
 
 const getBalanceColor = (balance: number) => {
-    if (balance > 0) return 'text-green-500';
-    if (balance < 0) return 'text-red-500';
+    if (balance > 0) return 'text-[var(--up-color)]';
+    if (balance < 0) return 'text-[var(--down-color)]';
     return 'text-gray-500';
 };
 
