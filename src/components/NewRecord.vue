@@ -3,8 +3,7 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import * as z from 'zod'
 import {
-    FormControl,
-    FormDescription,
+    FormControl,    
     FormField,
     FormItem,
     FormLabel,
@@ -13,13 +12,20 @@ import {
 import Button from './ui/button/Button.vue';
 import { Input } from './ui/input';
 import Textarea from './ui/textarea/Textarea.vue';
+import Select from './ui/select/Select.vue';
+import SelectValue from './ui/select/SelectValue.vue';
+import SelectContent from './ui/select/SelectContent.vue';
+import SelectGroup from './ui/select/SelectGroup.vue';
+import SelectItem from './ui/select/SelectItem.vue';
+import SelectTrigger from './ui/select/SelectTrigger.vue';
+import { ref } from 'vue';
+
 
 const props = defineProps<{
     type: string,
     monthId: number
 }>();
 
-// Función para generar ID único
 const generateId = () => Math.floor(Math.random() * 1000000) + Date.now();
 
 const formSchema = z.object({
@@ -68,14 +74,13 @@ const categoryOptions = [
 <template>
     <form @submit="onSubmit" class="max-w-4xl mx-auto p-6">
         <!-- IDs generados automáticamente (ocultos) -->
-        <input type="hidden" name="id" :value="form.values.id" />        
+        <input type="hidden" name="id" :value="form.values.id" />
         <input type="hidden" name="monthId" :value="props.monthId" />
 
         <!-- Información Principal -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <div class="space-y-6">
-                
-                
+
                 <!-- Nombre -->
                 <FormField v-slot="{ componentField }" name="name">
                     <FormItem>
@@ -96,68 +101,66 @@ const categoryOptions = [
                         </FormControl>
                         <FormMessage />
                     </FormItem>
-                </FormField>
-
-                <!-- Fecha -->
-                <FormField v-slot="{ componentField }" name="date">
-                    <FormItem>
-                        <FormLabel>Fecha</FormLabel>
-                        <FormControl>
-                            <Input type="date" v-bind="componentField" />
-                        </FormControl>                        
-                        <FormMessage />
-                    </FormItem>
-                </FormField>
+                </FormField>               
+                
             </div>
 
-            <div class="space-y-6">                
+            <div class="space-y-6">
                 
-                <!-- Categoría con datalist para autocompletado -->
                 <FormField v-slot="{ componentField }" name="category">
                     <FormItem>
                         <FormLabel>Categoría</FormLabel>
                         <FormControl>
-                            <Input 
-                                type="text" 
-                                placeholder="Selecciona o escribe una categoría" 
-                                v-bind="componentField"
-                                list="categories"
-                            />
+                            <Select v-bind="componentField">
+                                <SelectTrigger class="w-auto">
+                                    <SelectValue placeholder="Selecciona una categoría" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem v-for="cat in categoryOptions" :key="cat" :value="cat">
+                                            {{ cat }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </FormControl>
-                        <datalist id="categories">
-                            <option v-for="cat in categoryOptions" :key="cat" :value="cat">{{ cat }}</option>
-                        </datalist>
-                        <FormDescription>
-                            Puedes seleccionar de las opciones o escribir una nueva categoría.
-                        </FormDescription>
+                        <FormMessage/>
+                    </FormItem>
+                </FormField>
+
+                <FormField v-slot="{ componentField }" name="date">
+                    <FormItem>
+                        <FormLabel>Fecha</FormLabel>
+                        <FormControl>
+                            <div class="relative w-fit">
+                                <Input 
+                                    type="date" 
+                                    v-bind="componentField"                                                           
+                                />                                
+                            </div>
+                        </FormControl>                        
                         <FormMessage />
                     </FormItem>
                 </FormField>
-                
+
             </div>
         </div>
 
         <!-- Descripción - Campo completo en la parte inferior -->
         <div class="mb-8">
             <h2 class="text-xl font-semibold text-foreground border-b pb-2 mb-6">Detalles Adicionales</h2>
-            
+
             <FormField v-slot="{ componentField }" name="description">
                 <FormItem>
                     <FormLabel>Descripción (opcional)</FormLabel>
                     <FormControl>
-                        <Textarea 
-                            placeholder="Detalles adicionales sobre la transacción..." 
-                            v-bind="componentField" 
-                            class="min-h-[100px]"
-                        />
-                    </FormControl>
-                    <FormDescription>
-                        Información adicional sobre la transacción.
-                    </FormDescription>
+                        <Textarea placeholder="Detalles adicionales sobre la transacción..." v-bind="componentField"
+                            class="min-h-[100px]" />
+                    </FormControl>                    
                     <FormMessage />
                 </FormItem>
             </FormField>
-        </div>        
+        </div>
 
         <!-- Botón de envío -->
         <div class="flex justify-end space-x-4">
