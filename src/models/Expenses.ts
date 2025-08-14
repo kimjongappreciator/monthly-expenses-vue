@@ -8,12 +8,7 @@ export const expenses: transactionModel[] = [
     description: "Compra semanal en supermercado",
     amount: 250.75,
     monthId: 1,
-    category: {
-      id: 1,
-      importance: 3,
-      name: "Alimentación",
-      description: "Gastos de comida y supermercado",            
-    },
+    category: "Alimentación",
     date: new Date(2025,0,13)
   },
   {
@@ -22,12 +17,7 @@ export const expenses: transactionModel[] = [
     description: "Recargas de tarjeta de bus",
     amount: 45,
     monthId: 1,
-    category: {
-      id: 2,
-      importance: 2,
-      name: "Transporte",
-      description: "Gastos de movilidad",            
-    },
+    category: "Transporte",
     date: new Date(2025,0,5)
   },
   {
@@ -36,12 +26,7 @@ export const expenses: transactionModel[] = [
     description: "Factura de luz del mes",
     amount: 120.5,
     monthId: 1,
-    category: {
-      id: 3,
-      importance: 4,
-      name: "Servicios",
-      description: "Servicios básicos como agua, luz, gas",            
-    },
+    category: "Servicios",
     date: new Date(2025,0,18)
   }
 ];

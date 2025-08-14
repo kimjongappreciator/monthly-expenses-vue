@@ -1,18 +1,10 @@
-type CategoryModel = {
-  id: number;
-  importance: number
-  name: string;         
-  description?: string;              
-};
-
-
 export type transactionModel ={
     id: number,    
     name: string,
     description?: string,
     amount: number,
-    monthId: number,    
-    category: CategoryModel
+    monthId: number,
+    category: string,
     date: Date
 }
 

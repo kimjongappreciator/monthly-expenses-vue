@@ -12,13 +12,11 @@ import {
 } from "@/components/ui/table"
 import Button from "./ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import NewRecord from "./NewRecord.vue";
+import Dialog from "./ui/dialog/Dialog.vue";
+import DialogTrigger from "./ui/dialog/DialogTrigger.vue";
+import DialogContent from "./ui/dialog/DialogContent.vue";
+import DialogTitle from "./ui/dialog/DialogTitle.vue";
 
 const props = defineProps<{
   monthId: number
@@ -42,17 +40,18 @@ const accordionItems = [
         <div class="overflow-x-auto">
           <Table class="w-full">
             <TableCaption>
-              <Popover>
-                <PopoverTrigger>
+              <Dialog>
+                <DialogTrigger as-child>
                   <Button variant="outline">
                     Nuevo
                     <Plus class="h-4 w-4" />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent>
+                </DialogTrigger>                
+                <DialogContent>
+                  <DialogTitle>Agregar item</DialogTitle>
                   <NewRecord :type="item.value === '1' ? 'income' : 'expense'" :month-id="props.monthId" />
-                </PopoverContent>
-              </Popover>
+                </DialogContent>
+              </Dialog>
             </TableCaption>
             <TableHeader>
               <TableRow>
@@ -72,7 +71,7 @@ const accordionItems = [
                 </TableCell>
                 <TableCell>
                   <div class="truncate max-w-[60px] sm:max-w-none">
-                    {{ e.category.name }}
+                    {{ e.category }}
                   </div>
                 </TableCell>
                 <TableCell class="hidden sm:table-cell">

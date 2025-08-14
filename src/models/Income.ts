@@ -8,12 +8,7 @@ export const incomes: transactionModel[] = [
     description: "Pago mensual",
     amount: 2500,
     monthId: 1,
-    category: {
-      id: 4,
-      importance: 5,
-      name: "Trabajo",
-      description: "Ingresos por empleo",            
-    },
+    category: "Trabajo",   
     date: new Date(2025,0,8)
   },
   {
@@ -22,12 +17,7 @@ export const incomes: transactionModel[] = [
     description: "Venta de laptop usada",
     amount: 800,
     monthId: 1,
-    category: {
-      id: 5,
-      importance: 3,
-      name: "Venta",
-      description: "Ingresos por venta de objetos",            
-    },
+    category: "Venta",
     date: new Date(2025,0,4)
   },
   {
@@ -36,12 +26,7 @@ export const incomes: transactionModel[] = [
     description: "Ganancias por ahorro",
     amount: 35.25,
     monthId: 1,
-    category: {
-      id: 6,
-      importance: 1,
-      name: "Finanzas",
-      description: "Ingresos pasivos y financieros",            
-    },
+    category: "Bancario",
     date: new Date(2025,0,7)
   }
 ];
