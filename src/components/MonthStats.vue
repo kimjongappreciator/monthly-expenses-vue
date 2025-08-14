@@ -46,12 +46,14 @@ function valueFormatter(tick: number | Date) {
                 <h1 class="pb-2">Ingresos</h1>
                 <DonutChart index="name" :category="'amount'" :data="income" :value-formatter="valueFormatter"
                     :colors="incomeColors" />
+                <p v-if="income.length === 0" class="text-sm"> No registra ingresos</p>
             </div>
 
             <div class="text-center">
                 <h1 class="pb-2">Gastos</h1>
                 <DonutChart index="name" :category="'amount'" :data="expenses" :value-formatter="valueFormatter"
                     :colors="expensesColors" />
+                <p v-if="expenses.length === 0" class="text-sm"> No registra gastos</p>
             </div>
 
         </div>

@@ -2,17 +2,26 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useMonthStore } from "@/models/monthsStore";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table"
+import Button from "./ui/button/Button.vue";
+import { Plus } from "lucide-vue-next";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import NewRecord from "./NewRecord.vue";
 
 const props = defineProps<{
-    monthId: number
+  monthId: number
 }>()
 
 const monthlyIncome = useMonthStore().getIncome(props.monthId) ?? []
@@ -20,9 +29,10 @@ const monthlyExpenses = useMonthStore().getExpenses(props.monthId) ?? []
 
 const defaultValue = "1"
 const accordionItems = [
-    { value: "1", title: "Ingresos", content: monthlyIncome },
-    { value: "2", title: "Gastos", content: monthlyExpenses }
+  { value: "1", title: "Ingresos", content: monthlyIncome },
+  { value: "2", title: "Gastos", content: monthlyExpenses }
 ]
+
 </script>
 <template>
   <Accordion type="single" collapsible :default-value="defaultValue">
@@ -31,13 +41,25 @@ const accordionItems = [
       <AccordionContent>
         <div class="overflow-x-auto">
           <Table class="w-full">
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>
+              <Popover>
+                <PopoverTrigger>
+                  <Button variant="outline">
+                    Nuevo
+                    <Plus class="h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <NewRecord :type="item.value === '1' ? 'income' : 'expense'" :month-id="props.monthId" />
+                </PopoverContent>
+              </Popover>
+            </TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead class="min-w-[80px]">Nombre</TableHead>
                 <TableHead class="min-w-[60px]">Tipo</TableHead>
                 <TableHead class="min-w-[100px] hidden sm:table-cell">Descripción</TableHead>
-                <TableHead class="min-w-[80px]">Fecha</TableHead>
+                <TableHead class="min-w-[80px]">Dia</TableHead>
                 <TableHead class="text-right min-w-[70px]">Monto</TableHead>
               </TableRow>
             </TableHeader>
@@ -60,9 +82,8 @@ const accordionItems = [
                 </TableCell>
                 <TableCell>
                   <div class="text-xs sm:text-sm">
-                    {{ new Date(e.date).toLocaleDateString('es-ES', { 
-                      day: '2-digit', 
-                      month: '2-digit' 
+                    {{ new Date(e.date).toLocaleDateString('es-ES', {
+                      day: '2-digit'                      
                     }) }}
                   </div>
                 </TableCell>
@@ -72,8 +93,8 @@ const accordionItems = [
               </TableRow>
             </TableBody>
           </Table>
-        </div>        
-        
+        </div>
+
       </AccordionContent>
     </AccordionItem>
   </Accordion>

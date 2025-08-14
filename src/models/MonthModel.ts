@@ -7,8 +7,7 @@ type CategoryModel = {
 
 
 export type transactionModel ={
-    id: number,
-    MonthId: number,
+    id: number,    
     name: string,
     description?: string,
     amount: number,
