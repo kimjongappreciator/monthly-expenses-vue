@@ -163,10 +163,7 @@ const categoryOptions = [
         </div>
 
         <!-- Botón de envío -->
-        <div class="flex justify-end space-x-4">
-            <Button type="button" variant="outline" class="px-6 py-2">
-                Cancelar
-            </Button>
+        <div class="flex justify-end space-x-4">            
             <Button type="submit" class="px-8 py-2">
                 Guardar
             </Button>

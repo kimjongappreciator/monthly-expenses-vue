@@ -30,8 +30,7 @@ const getBalanceColor = (balance: number) => {
 <template>
     <Card>
         <CardHeader>
-            <CardTitle>{{ month.name }}</CardTitle>
-            <CardDescription>Temp desc</CardDescription>
+            <CardTitle>{{ month.name }}</CardTitle>            
         </CardHeader>
         <CardContent>
             <div class="flex items-center justify-between">

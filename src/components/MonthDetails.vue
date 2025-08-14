@@ -35,7 +35,7 @@ const close = () => emit('update:open', false)
             <h1 class="text-lm mb-4 text-center"> Graficos detallados del mes </h1>
             <MonthStats :month-id="monthId" />
           </TabsContent>
-          <TabsContent value="transactions"> Contenido de Transacciones
+          <TabsContent value="transactions">
             <TransactionList :month-id="monthId" />
           </TabsContent>
         </Tabs>
