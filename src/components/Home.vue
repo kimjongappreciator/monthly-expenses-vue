@@ -6,7 +6,7 @@ import MonthCard from './MonthCard.vue';
 defineProps<{ msg: string }>()
 const monthsStore = useMonthStore();
 
-
+//todo: cambiar el grid por un carousel de meses y agregar un componente principal con el total de ingresos, gastos y balance de todos los meses
 </script>
 
 <template>
