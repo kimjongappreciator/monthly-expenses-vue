@@ -21,8 +21,16 @@ import SelectTrigger from './ui/select/SelectTrigger.vue';
 import { computed, ref } from 'vue';
 import Calendar from './ui/calendar/Calendar.vue';
 import { CalendarDate, DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date"
+import Popover from './ui/popover/Popover.vue';
+import PopoverTrigger from './ui/popover/PopoverTrigger.vue';
+import { CalendarIcon } from 'lucide-vue-next';
+import { toDate } from "reka-ui/date"
+import PopoverContent from './ui/popover/PopoverContent.vue';
 
 const placeholder = ref();
+const df = new DateFormatter("en-US", {
+    dateStyle: "long",
+})
 
 const value = computed({
     get: () => form.values.date ? parseDate(form.values.date) : undefined,
@@ -136,37 +144,35 @@ const categoryOptions = [
                     </FormItem>
                 </FormField>
 
-                <!--<FormField v-slot="{ componentField }" name="date">
-                    <FormItem>
-                        <FormLabel>Fecha</FormLabel>
-                        <FormControl>
-                            <div class="relative w-fit">
-                                <Input 
-                                    type="date" 
-                                    v-bind="componentField"                                                           
-                                />                                
-                            </div>
-                        </FormControl>                        
-                        <FormMessage />
-                    </FormItem>
-                </FormField>-->
-
                 <FormField name="date">
                     <FormItem>
                         <FormLabel>Fecha</FormLabel>
-                        <FormControl>
-                            <Calendar v-model:placeholder="placeholder" :model-value="value"
-                                calendar-label="Date of birth" initial-focus :min-value="new CalendarDate(1900, 1, 1)"
-                                :max-value="today(getLocalTimeZone())" @update:model-value="(v) => {
-                                    if (v) {
-                                        form.setFieldValue('date', v.toString())
-                                    }
-                                    else {
-                                        form.setFieldValue('date', undefined)
-                                    }
-                                }">
-                            </Calendar>                            
-                        </FormControl>
+                        <Popover>
+                            <PopoverTrigger as-child>
+                                <FormControl>
+                                    <Button class="w-auto ps-3 text-start font-normal" variant="outline">
+                                        <span>{{ value ? df.format(toDate(value)) : "Pick a date" }}</span>
+                                        <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                    <input hidden>
+                                </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent class="w-auto p-0">
+                                <Calendar v-model:placeholder="placeholder" :model-value="value"
+                                    calendar-label="Date of birth" initial-focus
+                                    :min-value="new CalendarDate(1900, 1, 1)" :max-value="today(getLocalTimeZone())"
+                                    @update:model-value="(v) => {
+                                        if (v) {
+                                            form.setFieldValue('date', v.toString())
+                                        }
+                                        else {
+                                            form.setFieldValue('date', undefined)
+                                        }
+                                    }">
+                                </Calendar>
+                            </PopoverContent>
+
+                        </Popover>
                         <FormMessage />
                     </FormItem>
                 </FormField>
