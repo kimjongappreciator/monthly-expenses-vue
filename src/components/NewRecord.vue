@@ -105,7 +105,7 @@ const incomeOptions = [
     'Otros'
 ];
 
-// Categorías predefinidas comunes
+// Array para almacenar las opciones de categoría
 const categoryOptions: string[] = [];
 
 onMounted(()=>{

@@ -10,8 +10,6 @@ import { Check, ChevronDown, ChevronUp, Plus } from 'lucide-vue-next';
 import MonthDetails from '../components/MonthDetails.vue';
 import { ref } from 'vue';
 
-
-
 defineProps<{
     month: MonthModel
 }>();

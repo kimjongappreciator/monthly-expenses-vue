@@ -56,8 +56,7 @@ export const useMonthStore = defineStore('monthStore', {
         this.months[index].expenses = this.months[index].expenses.filter(e => e.id !== expenseId);
         this.months[index].totalExpenses = this.months[index].expenses.reduce((sum, expense) => sum + expense.amount, 0);
       }
-    }
-
-  },
-  persist: true
+    },       
+    persist: true
+  }
 })
