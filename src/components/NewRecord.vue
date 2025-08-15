@@ -18,7 +18,7 @@ import SelectContent from './ui/select/SelectContent.vue';
 import SelectGroup from './ui/select/SelectGroup.vue';
 import SelectItem from './ui/select/SelectItem.vue';
 import SelectTrigger from './ui/select/SelectTrigger.vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Calendar from './ui/calendar/Calendar.vue';
 import { CalendarDate, DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date"
 import Popover from './ui/popover/Popover.vue';
@@ -73,8 +73,7 @@ const form = useForm({
     }
 })
 
-const onSubmit = form.handleSubmit((values) => {
-    console.log('trans type:', props.type);    
+const onSubmit = form.handleSubmit((values) => {    
     if (props.type === 'income') {
         store.newIncome(props.monthId, values);
         success.value = true;
@@ -86,8 +85,7 @@ const onSubmit = form.handleSubmit((values) => {
     }
 })
 
-// Categorías predefinidas comunes
-const categoryOptions = [
+const expensesOptions = [
     'Alimentación',
     'Transporte',
     'Entretenimiento',
@@ -98,6 +96,25 @@ const categoryOptions = [
     'Vivienda',
     'Otros'
 ];
+
+const incomeOptions = [
+    'Salario',
+    'Freelance',
+    'Inversiones',
+    'Regalos',
+    'Otros'
+];
+
+// Categorías predefinidas comunes
+const categoryOptions: string[] = [];
+
+onMounted(()=>{
+    if (props.type === 'income') {
+        categoryOptions.push(...incomeOptions);
+    } else {
+        categoryOptions.push(...expensesOptions);
+    }
+})
 
 </script>
 
