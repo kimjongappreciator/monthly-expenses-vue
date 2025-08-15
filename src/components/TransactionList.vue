@@ -11,25 +11,37 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Button from "./ui/button/Button.vue";
-import { Plus } from "lucide-vue-next";
+import { Plus, Trash } from "lucide-vue-next";
 import NewRecord from "./NewRecord.vue";
 import Dialog from "./ui/dialog/Dialog.vue";
 import DialogTrigger from "./ui/dialog/DialogTrigger.vue";
 import DialogContent from "./ui/dialog/DialogContent.vue";
 import DialogTitle from "./ui/dialog/DialogTitle.vue";
+import { computed } from "vue";
+
 
 const props = defineProps<{
   monthId: number
 }>()
 
-const monthlyIncome = useMonthStore().getIncome(props.monthId) ?? []
-const monthlyExpenses = useMonthStore().getExpenses(props.monthId) ?? []
+const store = useMonthStore();
+
+const monthlyIncome = computed(() => store.getIncome(props.monthId) ?? [])
+const monthlyExpenses = computed(() => store.getExpenses(props.monthId) ?? [])
 
 const defaultValue = "1"
-const accordionItems = [
-  { value: "1", title: "Ingresos", content: monthlyIncome },
-  { value: "2", title: "Gastos", content: monthlyExpenses }
-]
+const accordionItems = computed(() => [
+  { value: "1", title: "Ingresos", content: monthlyIncome.value },
+  { value: "2", title: "Gastos", content: monthlyExpenses.value }
+])
+
+function handleDelete(id: number, transType:string) : void {
+  if (transType === '1') {
+    useMonthStore().deleteIncome(props.monthId, id)
+  } else if (transType === '2') {
+    useMonthStore().deleteExpense(props.monthId, id)
+  }  
+}
 
 </script>
 <template>
@@ -60,6 +72,7 @@ const accordionItems = [
                 <TableHead class="min-w-[100px] hidden sm:table-cell">Descripción</TableHead>
                 <TableHead class="min-w-[80px]">Dia</TableHead>
                 <TableHead class="text-right min-w-[70px]">Monto</TableHead>
+                <TableHead class="text-right min-w-[25px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -88,6 +101,11 @@ const accordionItems = [
                 </TableCell>
                 <TableCell class="text-right font-medium">
                   {{ e.amount }}
+                </TableCell>
+                <TableCell class="text-center">
+                  <Button variant="ghost" size="icon" class="h-4 w-4" @click="handleDelete(e.id, item.value)">
+                    <Trash class="h-2 w-2" />
+                  </Button>
                 </TableCell>
               </TableRow>
             </TableBody>

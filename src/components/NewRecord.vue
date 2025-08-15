@@ -27,6 +27,7 @@ import { CalendarIcon } from 'lucide-vue-next';
 import { toDate } from "reka-ui/date"
 import PopoverContent from './ui/popover/PopoverContent.vue';
 import { useMonthStore } from '@/models/monthsStore';
+import { toast } from 'vue-sonner';
 
 const placeholder = ref();
 const df = new DateFormatter("en-US", {
@@ -46,6 +47,8 @@ const props = defineProps<{
 const generateId = () => Math.floor(Math.random() * 1000000) + Date.now();
 
 const store = useMonthStore();
+
+const success = ref(false);
 
 const formSchema = z.object({
     id: z.number().int().positive(),
@@ -73,9 +76,13 @@ const form = useForm({
 const onSubmit = form.handleSubmit((values) => {
     console.log('trans type:', props.type);    
     if (props.type === 'income') {
-        store.newIncome(props.monthId, values);                
+        store.newIncome(props.monthId, values);
+        success.value = true;
+        toast.success('Ingreso guardado correctamente');
     } else if (props.type === 'expense') {
-        store.newExpense(props.monthId, values);        
+        store.newExpense(props.monthId, values);
+        success.value = true;
+        toast.success('Gasto guardado correctamente');
     }
 })
 
@@ -203,7 +210,7 @@ const categoryOptions = [
 
         <!-- Botón de envío -->
         <div class="flex justify-end space-x-4">
-            <Button type="submit" class="px-8 py-2">
+            <Button :disabled="success" type="submit" class="px-8 py-2">
                 Guardar
             </Button>
         </div>

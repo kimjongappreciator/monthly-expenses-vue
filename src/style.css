@@ -101,11 +101,16 @@
   --circle-chart-primary: 235 60% 50%;   
   --circle-chart-secondary: 275 55% 55%; 
 
-  /*Transaction type colors*/
+  /*Transaction type chart colors*/
   --chart-income-primary: 160 70% 45%; 
   --chart-income-secondary: 180 65% 50%;
   --chart-expense-primary: 20 80% 50%;  
   --chart-expense-secondary: 0 75% 55%;
+
+   /*sonner toast colors*/
+  --sonner-ok-background: oklch(0.985 0 0);
+  --sonner-ok-foreground:  oklch(58.659% 0.14037 132.81);
+  --sonner-ok-border: oklch(51.028% 0.00006 271.152);
 }
 
 .dark {
@@ -153,6 +158,11 @@
   --chart-income-secondary: 180 70% 65%;  
   --chart-expense-primary: 25 85% 65%;
   --chart-expense-secondary: 0 80% 70%;
+
+  /*Transaction type chart colors*/
+  --sonner-ok-background: oklch(0.205 0 0);
+  --sonner-ok-foreground: oklch(0.985 0 0);
+  --sonner-ok-border: oklch(75.319% 0.17373 143.123);
 }
 
 @layer base {
