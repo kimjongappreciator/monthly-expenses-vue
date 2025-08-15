@@ -26,6 +26,7 @@ import PopoverTrigger from './ui/popover/PopoverTrigger.vue';
 import { CalendarIcon } from 'lucide-vue-next';
 import { toDate } from "reka-ui/date"
 import PopoverContent from './ui/popover/PopoverContent.vue';
+import { useMonthStore } from '@/models/monthsStore';
 
 const placeholder = ref();
 const df = new DateFormatter("en-US", {
@@ -43,6 +44,8 @@ const props = defineProps<{
 }>();
 
 const generateId = () => Math.floor(Math.random() * 1000000) + Date.now();
+
+const store = useMonthStore();
 
 const formSchema = z.object({
     id: z.number().int().positive(),
@@ -68,8 +71,12 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit((values) => {
-    console.log('trans type:', props.type);
-    console.log('Form submitted!', values)
+    console.log('trans type:', props.type);    
+    if (props.type === 'income') {
+        store.newIncome(props.monthId, values);                
+    } else if (props.type === 'expense') {
+        store.newExpense(props.monthId, values);        
+    }
 })
 
 // Categorías predefinidas comunes
@@ -113,7 +120,7 @@ const categoryOptions = [
                     <FormItem>
                         <FormLabel>Monto</FormLabel>
                         <FormControl>
-                            <Input type="number" step="0.01" min="0" placeholder="0.00" v-bind="componentField" />
+                            <Input type="number" step="0.1" min="0" placeholder="0.00" v-bind="componentField" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -151,10 +158,10 @@ const categoryOptions = [
                             <PopoverTrigger as-child>
                                 <FormControl>
                                     <Button class="w-auto ps-3 text-start font-normal" variant="outline">
-                                        <span>{{ value ? df.format(toDate(value)) : "Pick a date" }}</span>
+                                        <span>{{ value ? df.format(toDate(value)) : "Selecciona una fecha" }}</span>
                                         <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
                                     </Button>
-                                    <input hidden>
+                                    <input hidden type="text" name="date"/>
                                 </FormControl>
                             </PopoverTrigger>
                             <PopoverContent class="w-auto p-0">
@@ -182,8 +189,6 @@ const categoryOptions = [
 
         <!-- Descripción - Campo completo en la parte inferior -->
         <div class="mb-8">
-            <h2 class="text-xl font-semibold text-foreground border-b pb-2 mb-6">Detalles Adicionales</h2>
-
             <FormField v-slot="{ componentField }" name="description">
                 <FormItem>
                     <FormLabel>Descripción (opcional)</FormLabel>
