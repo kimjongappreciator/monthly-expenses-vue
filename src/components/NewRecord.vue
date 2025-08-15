@@ -3,7 +3,7 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import * as z from 'zod'
 import {
-    FormControl,    
+    FormControl,
     FormField,
     FormItem,
     FormLabel,
@@ -18,8 +18,16 @@ import SelectContent from './ui/select/SelectContent.vue';
 import SelectGroup from './ui/select/SelectGroup.vue';
 import SelectItem from './ui/select/SelectItem.vue';
 import SelectTrigger from './ui/select/SelectTrigger.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import Calendar from './ui/calendar/Calendar.vue';
+import { CalendarDate, DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date"
 
+const placeholder = ref();
+
+const value = computed({
+    get: () => form.values.date ? parseDate(form.values.date) : undefined,
+    set: val => val,
+})
 
 const props = defineProps<{
     type: string,
@@ -101,12 +109,12 @@ const categoryOptions = [
                         </FormControl>
                         <FormMessage />
                     </FormItem>
-                </FormField>               
-                
+                </FormField>
+
             </div>
 
             <div class="space-y-6">
-                
+
                 <FormField v-slot="{ componentField }" name="category">
                     <FormItem>
                         <FormLabel>Categoría</FormLabel>
@@ -124,11 +132,11 @@ const categoryOptions = [
                                 </SelectContent>
                             </Select>
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField }" name="date">
+                <!--<FormField v-slot="{ componentField }" name="date">
                     <FormItem>
                         <FormLabel>Fecha</FormLabel>
                         <FormControl>
@@ -139,6 +147,26 @@ const categoryOptions = [
                                 />                                
                             </div>
                         </FormControl>                        
+                        <FormMessage />
+                    </FormItem>
+                </FormField>-->
+
+                <FormField name="date">
+                    <FormItem>
+                        <FormLabel>Fecha</FormLabel>
+                        <FormControl>
+                            <Calendar v-model:placeholder="placeholder" :model-value="value"
+                                calendar-label="Date of birth" initial-focus :min-value="new CalendarDate(1900, 1, 1)"
+                                :max-value="today(getLocalTimeZone())" @update:model-value="(v) => {
+                                    if (v) {
+                                        form.setFieldValue('date', v.toString())
+                                    }
+                                    else {
+                                        form.setFieldValue('date', undefined)
+                                    }
+                                }">
+                            </Calendar>                            
+                        </FormControl>
                         <FormMessage />
                     </FormItem>
                 </FormField>
@@ -156,14 +184,14 @@ const categoryOptions = [
                     <FormControl>
                         <Textarea placeholder="Detalles adicionales sobre la transacción..." v-bind="componentField"
                             class="min-h-[100px]" />
-                    </FormControl>                    
+                    </FormControl>
                     <FormMessage />
                 </FormItem>
             </FormField>
         </div>
 
         <!-- Botón de envío -->
-        <div class="flex justify-end space-x-4">            
+        <div class="flex justify-end space-x-4">
             <Button type="submit" class="px-8 py-2">
                 Guardar
             </Button>
