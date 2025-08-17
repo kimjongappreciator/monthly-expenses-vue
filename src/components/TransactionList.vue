@@ -2,27 +2,47 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useMonthStore } from "@/models/monthsStore";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table"
+import Button from "./ui/button/Button.vue";
+import { Plus, Trash } from "lucide-vue-next";
+import NewRecord from "./NewRecord.vue";
+import Dialog from "./ui/dialog/Dialog.vue";
+import DialogTrigger from "./ui/dialog/DialogTrigger.vue";
+import DialogContent from "./ui/dialog/DialogContent.vue";
+import DialogTitle from "./ui/dialog/DialogTitle.vue";
+import { computed } from "vue";
+
 
 const props = defineProps<{
-    monthId: number
+  monthId: number
 }>()
 
-const monthlyIncome = useMonthStore().getIncome(props.monthId) ?? []
-const monthlyExpenses = useMonthStore().getExpenses(props.monthId) ?? []
+const store = useMonthStore();
+
+const monthlyIncome = computed(() => store.getIncome(props.monthId) ?? [])
+const monthlyExpenses = computed(() => store.getExpenses(props.monthId) ?? [])
 
 const defaultValue = "1"
-const accordionItems = [
-    { value: "1", title: "Ingresos", content: monthlyIncome },
-    { value: "2", title: "Gastos", content: monthlyExpenses }
-]
+const accordionItems = computed(() => [
+  { value: "1", title: "Ingresos", content: monthlyIncome.value },
+  { value: "2", title: "Gastos", content: monthlyExpenses.value }
+])
+
+function handleDelete(id: number, transType:string) : void {
+  if (transType === '1') {
+    useMonthStore().deleteIncome(props.monthId, id)
+  } else if (transType === '2') {
+    useMonthStore().deleteExpense(props.monthId, id)
+  }  
+}
+
 </script>
 <template>
   <Accordion type="single" collapsible :default-value="defaultValue">
@@ -31,14 +51,28 @@ const accordionItems = [
       <AccordionContent>
         <div class="overflow-x-auto">
           <Table class="w-full">
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>
+              <Dialog>
+                <DialogTrigger as-child>
+                  <Button variant="outline">
+                    Nuevo
+                    <Plus class="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>                
+                <DialogContent>
+                  <DialogTitle>Agregar item</DialogTitle>
+                  <NewRecord :type="item.value === '1' ? 'income' : 'expense'" :month-id="props.monthId" />
+                </DialogContent>
+              </Dialog>
+            </TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead class="min-w-[80px]">Nombre</TableHead>
                 <TableHead class="min-w-[60px]">Tipo</TableHead>
                 <TableHead class="min-w-[100px] hidden sm:table-cell">Descripción</TableHead>
-                <TableHead class="min-w-[80px]">Fecha</TableHead>
+                <TableHead class="min-w-[80px]">Dia</TableHead>
                 <TableHead class="text-right min-w-[70px]">Monto</TableHead>
+                <TableHead class="text-right min-w-[25px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -50,7 +84,7 @@ const accordionItems = [
                 </TableCell>
                 <TableCell>
                   <div class="truncate max-w-[60px] sm:max-w-none">
-                    {{ e.category.name }}
+                    {{ e.category }}
                   </div>
                 </TableCell>
                 <TableCell class="hidden sm:table-cell">
@@ -60,20 +94,24 @@ const accordionItems = [
                 </TableCell>
                 <TableCell>
                   <div class="text-xs sm:text-sm">
-                    {{ new Date(e.date).toLocaleDateString('es-ES', { 
-                      day: '2-digit', 
-                      month: '2-digit' 
+                    {{ new Date(e.date).toLocaleDateString('es-ES', {
+                      day: '2-digit'                      
                     }) }}
                   </div>
                 </TableCell>
                 <TableCell class="text-right font-medium">
                   {{ e.amount }}
                 </TableCell>
+                <TableCell class="text-center">
+                  <Button variant="ghost" size="icon" class="h-4 w-4" @click="handleDelete(e.id, item.value)">
+                    <Trash class="h-2 w-2" />
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
-        </div>        
-        
+        </div>
+
       </AccordionContent>
     </AccordionItem>
   </Accordion>
