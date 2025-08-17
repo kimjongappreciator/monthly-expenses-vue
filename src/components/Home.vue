@@ -9,7 +9,6 @@ import CarouselNext from "./ui/carousel/CarouselNext.vue";
 
 defineProps<{ msg: string }>();
 const monthsStore = useMonthStore();
-
 </script>
 
 <template>
