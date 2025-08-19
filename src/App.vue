@@ -8,7 +8,7 @@ import 'vue-sonner/style.css'
 <template>
   <Toaster position="top-center"/>
   <ThemeToggle></ThemeToggle>
-  <Home msg="Usuario" />
+  <Home/>
 </template>
 
 <style scoped>

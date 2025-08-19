@@ -56,7 +56,21 @@ export const useMonthStore = defineStore('monthStore', {
         this.months[index].expenses = this.months[index].expenses.filter(e => e.id !== expenseId);
         this.months[index].totalExpenses = this.months[index].expenses.reduce((sum, expense) => sum + expense.amount, 0);
       }
-    },       
+    },
+    getYearlyBalance() {
+      const totalIncome = this.months.reduce((sum, month) => sum + month.totalIncome, 0);
+      const totalExpenses = this.months.reduce((sum, month) => sum + month.totalExpenses, 0);
+      const transactionNumber = this.months.reduce((sum, month) => sum + month.income.length + month.expenses.length, 0);
+      return { totalIncome, totalExpenses, balance: totalIncome - totalExpenses, transactionNumber };
+    },
+
+    getYearlyChart(){
+      const monthlyData = this.months.map(month => ({
+        month: month.name,
+        ingresos: month.totalIncome || 0,
+        gastos: month.totalExpenses || 0}));
+      return monthlyData;
+    },
     persist: true
   }
 })
