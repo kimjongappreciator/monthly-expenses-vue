@@ -9,6 +9,7 @@ import Button from './ui/button/Button.vue';
 import { Check, ChevronDown, ChevronUp, Plus } from 'lucide-vue-next';
 import MonthDetails from '../components/MonthDetails.vue';
 import { ref } from 'vue';
+import CardDescription from './ui/card/CardDescription.vue';
 
 defineProps<{
     month: MonthModel
@@ -27,7 +28,8 @@ const getBalanceColor = (balance: number) => {
 <template>
     <Card>
         <CardHeader>
-            <CardTitle>{{ month.name }}</CardTitle>            
+            <CardTitle>{{ month.name }}</CardTitle>
+            <CardDescription>{{ month.year }} - {{ month.days }} dias</CardDescription>
         </CardHeader>
         <CardContent>
             <div class="flex items-center justify-between">
