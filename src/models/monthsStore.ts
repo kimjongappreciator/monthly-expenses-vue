@@ -18,6 +18,7 @@ export const useMonthStore = defineStore('monthStore', {
       }
     },
     newIncome(id: number, income: transactionModel) {
+      console.log(id, income)
       const index = this.months.findIndex(m => m.id === id);
       if (index !== -1) {
         this.months[index].income.push(income);
@@ -70,7 +71,7 @@ export const useMonthStore = defineStore('monthStore', {
         ingresos: month.totalIncome || 0,
         gastos: month.totalExpenses || 0}));
       return monthlyData;
-    },
-    persist: true
-  }
+    },    
+  },
+  persist: true
 })

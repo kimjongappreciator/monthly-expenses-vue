@@ -2,11 +2,15 @@
 import { useMonthStore } from '@/models/monthsStore';
 import Separator from './ui/separator/Separator.vue';
 import { BadgeDollarSign, BadgeInfo, HandCoins, Wallet } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 
 const store = useMonthStore();
 
+const totalIncome = computed(() => store.getYearlyBalance().totalIncome);
+const totalExpenses = computed(() => store.getYearlyBalance().totalExpenses);
+const transactionNumber = computed(() => store.getYearlyBalance().transactionNumber);
+const balance = computed(() => store.getYearlyBalance().balance);
 
-const { totalIncome, totalExpenses, balance, transactionNumber } = store.getYearlyBalance();
 const getBalanceColor = (balance: number) => {
     if (balance > 0) return 'text-[var(--up-color)]';
     if (balance < 0) return 'text-[var(--down-color)]';
