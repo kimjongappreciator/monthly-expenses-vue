@@ -2,7 +2,7 @@
 import { useMonthStore } from '@/models/monthsStore';
 import Separator from './ui/separator/Separator.vue';
 import { BadgeDollarSign, BadgeInfo, HandCoins, Wallet } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { computed} from 'vue';
 
 const store = useMonthStore();
 
